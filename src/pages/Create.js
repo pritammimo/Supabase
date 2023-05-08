@@ -17,13 +17,16 @@ const Create = () => {
       setFormError('Please fill in all the fields correctly.')
       return
     }
-
-    const { data, error } = await supabase
+    const {error:notificationerror } = await supabase
+    .from('notification')
+    .insert([
+      { title,user_id:2,isread:false },
+    ])
+    const { data, error:Smoothieerror} = await supabase
       .from('smoothies')
       .insert([{ title, method, rating }])
       .select()
-    if (error) {
-      console.log(error)
+    if (Smoothieerror) {
       setFormError('Please fill in all the fields correctly.')
     }
     if (data) {
